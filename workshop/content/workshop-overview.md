@@ -1,24 +1,47 @@
-Tekton
-------
+In this self-paced tutorial, you will learn how to use Tekton to automate the deployment of applications 
+to Kubernetes.
 
-The Tekton project provides Kubernetes resources for declaring continuous integration, continuous 
-deployment (CI/CD) pipelines.
+Here are some of the things you will get to do during this workshop:
 
-This workshop discusses concepts around Kubernetes and CI/CD, and you should have a high-level 
-understanding about both concepts before proceeding with this workshop.
+* Learn about the [custom resource definitions](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/) (CRDs) behind Tekton
+* Create a CI/CD pipeline using Tekton CRDs on a Kubernetes cluster via the Kubernetes CLI (`kubectl`) and the Tekton CLI (`tkn`)
+* Deploy an application to a Kubernetes cluster via a Tekton CI/CD pipeline
+* View your deployed application 
+* Learn more about the Tekton project as a whole and additional resources for the project
+* Explore! You have a Kubernetes cluster with Tekton and associated tools installed. Have fun with it and use it to do things beyond what the workshop suggests when you finish.
 
-Kubernetes
-----------
+Before beginning the workshop, you should learn a little about the workshop environment. 
 
-Kubernetes is an open-source system for automating deployment, scaling, and management
-of containerized applications.
+All commands in this tutorial can be executed by clicking the running stick figure icon on the side of the command. Go 
+ahead and run the following command to see the version of `kubectl`/Kubernetes available during this workshop:
 
-Continuous Integration, Continuous Delivery (CI/CD)
---------------------------------------------------
+```execute-1 
+kubectl version --short
+```
 
-A continuous integration, continuous delivery (CI/CD) pipeline is an automated expression
-of your process for getting software from version control right through to your users and customers.
-Every change to your software (i.e. committed in source control) goes through a complex
-process on its way to being released. This process involves building the software in a
-reliable and repeatable manner as well as progressing the built software (called a "build")
-through multiple stages of testing and deployment.
+Note that there will be times a command is run in the bottom terminal as opposed to the top terminal. For the `tkn` command 
+below, when you run it, it will execute in the lower terminal: 
+
+```execute-2 
+tkn version
+```
+
+Where the command is executed is denoted by the number with the running stick figure icon. If there is a 1, the command will 
+execute in the top terminal. If there is a 2, the command will execute in the bottom terminal. 
+
+The last piece of information to note about the workshop environment is the **Console** tab in the top center of your browser 
+next to the **Terminal** tab. The **Console** tab provides the Kubernetes dashboard to help you visualize your Kubernetes cluster 
+during the workshop. You will occassionally be asked to switch over to this view to highlight a particular concept. 
+
+Go ahead and click on the **Console** tab to take a look at the Kubernetes dashboard. Whenever you are done looking at the **Console** 
+tab, switch back to the **Terminal** tab by clicking on it. 
+
+Before beginning the workshop, execute the following commands to clear your terminals:
+
+```execute-1 
+clear
+```
+
+```execute-2
+clear
+```

@@ -7,7 +7,14 @@ spec:
   title: Tekton Fundamentals
   description: Workshop on learning the fundamentals of using Tekton for CI/CD
   url: https://github.com/danielhelfand/lab_tekton_fundamentals
-  image: quay.io/eduk8s/lab-markdown-sample:master
+  image: danielhelfand/lab_tekton_fundamentals:latest
   duration: 1h
   session:
     budget: medium
+    applications:
+      console:
+        enabled: true
+      terminal:
+        enabled: true
+        layout: split
+    

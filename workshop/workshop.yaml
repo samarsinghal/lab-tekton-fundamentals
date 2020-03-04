@@ -2,7 +2,9 @@ name: Markdown Sample
 
 modules:
     activate:
+    - concepts-overview
     - workshop-overview
-    - setup-environment
-    - exercises/01-sample-content
+    - exercises/tekton-overview
+    - exercises/create-task-and-taskrun
+    - exercises/taskrun-breakdown
     - workshop-summary
