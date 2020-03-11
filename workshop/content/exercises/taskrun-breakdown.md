@@ -39,14 +39,37 @@ output of the `Step` to the right of `Step` name. The output shows the `echo-fir
 followed by the `echo-second` `Step`. 
 
 You can further describe the `TaskRun` using `tkn tr describe`. First, grab the name of the `TaskRun` 
-and save it to a variable named `TASKRUN1`:
+and save it to a variable named `TASKRUN`:
 
 ```execute-1
-RUN=`tkn tr ls -o name --limit 1`; TASKRUN1=$(echo "${RUN:19}")
+TASKRUN=`tkn tr ls -o jsonpath="{range .items[*]}{.metadata.name}{\"\\n\"}{end}" --limit 1`
 ```
 
 Run the following to describe the `TaskRun`:
 
 ```execute-1
-tkn tr desc $TASKRUN1
+tkn tr desc $TASKRUN
 ```
+
+`tkn tr desc` shows much more detail about `TaskRuns` that you have created. It is particularly helpful 
+for debugging why a `TaskRun` has failed. You should see general information about the `TaskRun`, including 
+the `Name` of it, the `Namespace` where the `TaskRun` ran, the `Task Ref` that shows what `Task` was run, 
+`Status` information similar to what is available with `tkn tr ls`, and lots of other details that will be more 
+relevant in later sections of the workshop. 
+
+One thing to note before moving on is the ability to see the `STATUS` of `Steps` of a `TaskRun`. You should see 
+that both the `Steps` of the `TaskRun` are in a `Completed` state, indicating a successful termination state for 
+the container.
+
+In the next section, you will learn about and create more advanced `Tasks` as part of building a `Pipeline`. Clear 
+your terminals before continuing:
+
+```execute-1 
+clear
+```
+
+```execute-2
+clear
+```
+
+Click on **Build Container Image from Source Task** to continue.
