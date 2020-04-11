@@ -8,4 +8,5 @@ modules:
     - exercises/create-task-and-taskrun
     - exercises/taskrun-breakdown
     - exercises/build-task
+    - exercises/deploy-task
     - workshop-summary

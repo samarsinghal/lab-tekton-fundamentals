@@ -17,6 +17,9 @@ modules:
     exercises/build-task:
         name: Build Task
         exit_sign: Deploy Task
+    exercises/deploy-task:
+        name: Deploy Task
+        exit_sign: ServiceAccounts
     workshop-summary:
         name: Workshop Summary
         exit_sign: Finish Workshop
