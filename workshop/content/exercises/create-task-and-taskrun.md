@@ -6,7 +6,7 @@ all run on a Kubernetes Pod.
 An example `Task` is shown below:
 
 ```yaml
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: echo-task
@@ -28,7 +28,7 @@ spec:
 
 Under the `spec` property of a `Task`, you will see the `steps` property where container images are specified via the 
 `image` property. In the case of the first `Step` named `echo-first`, it will use the `ubuntu` image to execute a 
-`command`, which is just an `echo`. Finally, the `args` property can be used to pass an argument to the `echo-first` `Step`. 
+`command`, which is just an `echo`. Finally, the `args` property can be used to pass an argument to the `echo` command. 
 
 There is also a second `Step` named `echo-second`. The only difference between the two `Steps` are the arguments passed. The 
 first `Step` will print `Executing first` via an `echo` command. The second `Step` will print `Executing second` via an `echo` 
@@ -37,7 +37,7 @@ command. Since `echo-first` is listed before `echo-second`, `echo-first` will ru
 To see this in action, create the above `Task` by running the command below:
 
 ```execute-1
-kubectl apply -f /home/eduk8s/workshop/content/exercises/resources/echo-task.yaml
+kubectl apply -f /home/eduk8s/tekton/tasks/echo-task.yaml
 ```
 
 Using the Tekton CLI, you can view the `Task` has been successfully created:

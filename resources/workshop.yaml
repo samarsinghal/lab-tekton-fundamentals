@@ -10,11 +10,68 @@ spec:
   image: danielhelfand/lab_tekton_fundamentals:latest
   duration: 1h
   session:
-    budget: medium
+    budget: custom
     applications:
       console:
         enabled: true
       terminal:
         enabled: true
         layout: split
-    
+    objects:
+    - apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: registry
+      spec:
+        replicas: 1
+        selector:
+          matchLabels:
+            deployment: registry
+        strategy:
+          type: Recreate
+        template:
+          metadata:
+            labels:
+              deployment: registry
+          spec:
+            containers:
+            - name: registry
+              image: registry:2.7.1
+              imagePullPolicy: IfNotPresent
+              ports:
+              - containerPort: 5000
+    - apiVersion: v1
+      kind: Service
+      metadata:
+        name: registry
+      spec:
+        type: ClusterIP
+        ports:
+        - protocol: TCP
+          port: 5000
+          targetPort: 5000    
+        selector:
+          deployment: registry
+    - apiVersion: v1
+      kind: ServiceAccount
+      metadata:
+        name: tekton-sa
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: Role
+      metadata:
+        name: create-deployments-services
+      rules:
+      - apiGroups: ["apps", ""]
+        resources: ["deployments", "deployments.apps", "services"]
+        verbs: ["get", "list", "watch" , "create", "update", "patch", "delete"]
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: RoleBinding
+      metadata:
+        name: create-deployments-services-binding
+      roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: Role
+        name: create-deployments-services
+      subjects:
+      - kind: ServiceAccount
+        name: tekton-sa

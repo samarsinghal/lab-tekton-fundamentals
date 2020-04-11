@@ -13,13 +13,13 @@ echo-task-run-5jjk4   1 minute ago     9 seconds   Succeeded
 ```
 
 The `NAME` column shows the name of the `TaskRun`. Each `TaskRun` has a unique 
-name to help identify a particular run for a `Task`. Additionally, `tkn tr ls`, 
+name to help identify a particular execution of a `Task`. Additionally, `tkn tr ls`, 
 which uses the `tkn tr` shorthand for `tkn taskrun`, shows information about the 
 start time (`STARTED`), how long the `TaskRun` took to execute (`DURATION`), and 
 shows the success or failure of the `TaskRun` (`STATUS`).
 
-Your `TaskRun` has a `STATUS` of succeeded, indicating the `Task` executed successfully. 
-You can further verify this by taking a look at the logs of the last `TaskRun` to verify 
+Your `TaskRun` has a `STATUS` of `Succeeded`, indicating the `Task` executed successfully. 
+You can further verify this by taking a look at the logs of the last `TaskRun` to see if 
 `echo-task` carried out the expected `Steps` in the correct order:
 
 ```execute-2
@@ -72,4 +72,4 @@ clear
 clear
 ```
 
-Click on **Build Container Image from Source Task** to continue.
+Click on **Build Task** to continue.

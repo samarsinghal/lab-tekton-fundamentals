@@ -4,6 +4,6 @@ metadata:
   name: lab-tekton-fundamentals
 spec:
   portal:
-    capacity: 1
+    capacity: 1 #number of sessions for workshop. Increase based on amount of expected users.
   workshops:
   - name: lab-tekton-fundamentals

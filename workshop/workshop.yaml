@@ -7,4 +7,5 @@ modules:
     - exercises/tekton-overview
     - exercises/create-task-and-taskrun
     - exercises/taskrun-breakdown
+    - exercises/build-task
     - workshop-summary

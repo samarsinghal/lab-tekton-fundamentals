@@ -15,7 +15,7 @@ For installation instructions for the eduk8s operator see:
 Tekton must also be installed on your cluster hosting the workshop. You can install it using the following command:
 
 ```
-kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/previous/v0.11.0-rc1/release.yaml
+kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/previous/v0.11.1/release.yaml
 ```
 
 Deployment

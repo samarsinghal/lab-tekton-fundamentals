@@ -13,7 +13,10 @@ modules:
         exit_sign: TaskRun Breakdown
     exercises/taskrun-breakdown:
         name: TaskRun Breakdown
-        exit_sign: Workshop Summary
+        exit_sign: Build Task
+    exercises/build-task:
+        name: Build Task
+        exit_sign: Deploy Task
     workshop-summary:
         name: Workshop Summary
         exit_sign: Finish Workshop
