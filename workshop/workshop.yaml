@@ -9,4 +9,5 @@ modules:
     - exercises/taskrun-breakdown
     - exercises/build-task
     - exercises/deploy-task
+    - exercises/serviceaccount
     - workshop-summary

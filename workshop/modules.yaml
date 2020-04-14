@@ -20,6 +20,9 @@ modules:
     exercises/deploy-task:
         name: Deploy Task
         exit_sign: ServiceAccounts
+    exercises/serviceaccount:
+        name: ServiceAccounts
+        exit_sign: PipelineResources
     workshop-summary:
         name: Workshop Summary
         exit_sign: Finish Workshop

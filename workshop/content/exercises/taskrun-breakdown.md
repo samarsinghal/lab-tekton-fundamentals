@@ -2,10 +2,10 @@ In the previous section, you created a `TaskRun`. Go ahead and take a look at
 the status of that `TaskRun`:
 
 ```execute-1
-tkn tr ls
+watch tkn tr ls
 ```
 
-You will see something similar to the following:
+You will eventually see something similar to the following:
 
 ```
 NAME                  STARTED          DURATION    STATUS
@@ -18,12 +18,18 @@ which uses the `tkn tr` shorthand for `tkn taskrun`, shows information about the
 start time (`STARTED`), how long the `TaskRun` took to execute (`DURATION`), and 
 shows the success or failure of the `TaskRun` (`STATUS`).
 
+Once your `TaskRun` has a `STATUS` of `Succeeded`, break the watch on `tkn tr ls`:
+
+```execute-1
+<ctrl+c>
+```
+
 Your `TaskRun` has a `STATUS` of `Succeeded`, indicating the `Task` executed successfully. 
 You can further verify this by taking a look at the logs of the last `TaskRun` to see if 
 `echo-task` carried out the expected `Steps` in the correct order:
 
 ```execute-2
-tkn tr logs --last
+tkn tr logs --last -f
 ```
 
 The log output you see should be similar to the following:

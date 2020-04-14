@@ -1,0 +1,117 @@
+In the previous sections, you created `Tasks` that will be able build a container 
+image to host an application and then deploy that built image as a container running 
+on a Kubernetes cluster. 
+
+For the application your `Pipeline` will deploy to Kubernetes, the `Pipeline` will 
+need to be able to create the following Kubernetes resources to support the deployed 
+container:
+* [`Deployment`](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
+* [`Service`](https://kubernetes.io/docs/concepts/services-networking/service/)
+
+These resources exist within the manifest YAML file that is part of the GitHub repository 
+where the application you will deploy to Kubernetes is. The manifest holds the following 
+information:
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-web-server-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: go-web-server
+  template:
+    metadata:
+      labels:
+        app: go-web-server
+    spec:
+      containers:
+      - name: go-web-server
+        image: danielhelfand/go-web-server:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: go-web-server-service
+  labels:
+    app: go-web-server
+spec:
+  type: NodePort
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+  selector:
+    app: go-web-server
+```
+
+The `Deployment` specifies what containers will be deployed to a Kubernetes `Pod` and 
+how many `replicas` (i.e. `Pods`) will be created that host the containers. In the manifest 
+for your application, two `Pods` will be created hosting a container image available at 
+`danielhelfand/go-web-server:latest`. However, this container image currently in the manifest 
+will be replaced by the `replace-image` `step` in the `deploy-using-kubectl` `Task` you created. 
+
+The `Service` is used to route requests to the containers running on both `Pods`. It will provide 
+a common endpoint to access the application deployed by the `Pipeline` you will create.
+
+Since the `Pipeline` needs the ability to create these resources, a [`ServiceAccount`](https://kubernetes.io/docs/reference/access-authn-authz/service-accounts-admin/) can be used. This `ServiceAccount` is a user that can be used to help 
+with automating certain aspects of working with Kubernetes. A `ServiceAccount` named `tekton-sa` 
+has already been created in your namespace that has permissions assigned to it to create and update 
+`Deployments` and `Services`.
+
+Run the following command to see the `tekton-sa` `ServiceAccount` available in your namespace:
+
+```execute-1
+kubectl get serviceaccount tekton-sa
+```
+
+The way permissions are attached to `tekton-sa` is via a Kubernetes [`Role`](https://kubernetes.io/docs/reference/access-authn-authz/rbac/), 
+which is a collection of actions or `verbs` that can be used on certain Kubernetes resources. In this 
+case, those resources will be `Deployments` and `Services`.
+
+Take a look at the `Role` that `tekton-sa` will have assigned to it:
+
+```execute-1
+kubectl describe role create-deployments-services
+```
+
+Under the property `PolicyRule`, a list of `Resources` is defined. Each resource corresponds to a list of 
+`Verbs`, which represent actions a particular `ServiceAccount` or regular user is allowed to perform on a 
+resource. Since this is a `Role` and not a `ClusterRole`, these permissions only apply to the namespace you 
+are currently working in.
+
+The `create-deployments-services` `Role` allows a user to create and update resources in the namespace where 
+the `Role` is created.
+
+You can see how `tekton-sa` is connected to the `create-deployments-services` via a `RoleBinding`, which binds 
+a user with the permissions of a `Role`:
+
+```execute-1
+kubectl describe rolebinding create-deployments-services-binding
+```
+
+Under the `Role` property, you should see `create-deployments-services`, meaning this is the role that will be bound 
+to a subject. Under the `Subjects` property, the `tekton-sa` `ServiceAccont` is present.
+
+Having the `tekton-sa` `ServiceAccount` will allow your `Pipeline` to create the supplementary resources needed to 
+support that application that will be deployed.
+
+`ServiceAccounts` with Tekton can also be helpful when connecting sensitive information to a user (e.g. an image registry 
+username and password) via Kubernetes [`Secrets`](https://kubernetes.io/docs/concepts/configuration/secret/). No `Secrets` 
+are needed in this scenario, but it's something to keep in mind for more complex use cases with CI/CD.
+
+In the next section, you will create `PipelineResources` that will be used to connect an application's GitHub repository 
+to a `PipelineRun` as well as an image registry, name, and tag where a built container image will be pushed to.
+
+Clear your terminal before continuing:
+
+```execute-1 
+clear
+```
+
+Click the **PipelineResources** button to continue.
