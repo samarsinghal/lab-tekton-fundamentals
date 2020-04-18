@@ -23,6 +23,18 @@ modules:
     exercises/serviceaccount:
         name: ServiceAccounts
         exit_sign: PipelineResources
+    exercises/pipelineresources:
+        name: PipelineResources
+        exit_sign: Create a Pipeline
+    exercises/pipeline:
+        name: Create a Pipeline
+        exit_sign: Create a PipelineRun
+    exercises/pipelinerun:
+        name: Create a PipelineRun
+        exit_sign: Verify Deployment
+    exercises/verify-deployment:
+        name: Verify Deployment
+        exit_sign: Workshop Summary
     workshop-summary:
         name: Workshop Summary
         exit_sign: Finish Workshop

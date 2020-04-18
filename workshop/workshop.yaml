@@ -10,4 +10,8 @@ modules:
     - exercises/build-task
     - exercises/deploy-task
     - exercises/serviceaccount
+    - exercises/pipelineresources
+    - exercises/pipeline
+    - exercises/pipelinerun
+    - exercises/verify-deployment
     - workshop-summary
