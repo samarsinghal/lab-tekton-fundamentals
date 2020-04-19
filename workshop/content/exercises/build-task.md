@@ -9,8 +9,7 @@ The `Tasks` needed for this `Pipeline` will be as follows:
 * Deploying the pushed container image to your Kubernetes cluster
 
 The first `Task` you will create is named `build-docker-image-from-git-source`. To
-explain it better, the `Task` YAML definition will be broken into pieces, but you 
-will be able to see the full definition at the end of this section.
+explain it better, the `Task` YAML definition will be broken into pieces.
 
 To start, each `Task` specifies the `apiVersion` of the `tekton.dev` API group being used, 
 the `kind` of resource being created, and the `name` of the resource being created under 
@@ -70,7 +69,7 @@ The next portion of the `Task` specifies what `PipelineResources` the `Task` req
 ```
 
 Under the `resources` property of the `Task`, an `input` `PipelineResource` of `type: git` is declared, meaning that this 
-`Task` expects to have information passed to it about a git repository. 
+`Task` expects a git repository to work with. 
 
 The `output` `PipelineResource` of `type: image` specifies the container image registry, image name, and tag associated with 
 the image where a built container image will be pushed to. 
@@ -110,12 +109,6 @@ passed to it is the param `pathToContext` from earlier in this section.
 To summarize, `build-docker-image-from-git-source` will take a git repository input, build the Dockerfile present in the git 
 repository using `kaniko`, and then will push the image to an image registry.
 
-View the `Task` definition as a whole in the lower Terminal by running the following command:
-
-```execute-2
-cat /home/eduk8s/tekton/tasks/kaniko.yaml
-```
-
 Create `build-docker-image-from-git-source` by running the following command:
 
 ```execute-1
@@ -133,13 +126,9 @@ You should now see two `Tasks` created in your namespace: `build-docker-image-fr
 In the next section, you will learn about the second `Task` for the `Pipeline` you will create to deploy the 
 container image built from `build-docker-image-from-git-source`.
 
-Clear your terminals before continuing:
+Clear your terminal before continuing:
 
 ```execute-1 
-clear
-```
-
-```execute-2
 clear
 ```
 

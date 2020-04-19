@@ -27,16 +27,17 @@ spec:
         The path to the image to replace in the yaml manifest (arg to yq)
 ```
 
-The first param is named `path`, and it is required to run `deploy-using-kubectl`. This means 
-a value must be specified for `path` at run time as part of a `TaskRun`. The `path` param allows 
-you to specify the location of a Kubernetes manifest to apply via a file path. A manifest is a file, which 
-is typically in a YAML format, with a collection of Kubernetes resources that will be used to support 
-a container image that you deploy to Kubernetes. 
+The first param is named `path`, and it is required to run `deploy-using-kubectl` since no `default` value 
+is declared for the param. This means a value must be specified for `path` at run time as part of a `TaskRun`. 
 
-The second param is named `yamlPathToImage`. Within the manifest the can be specified with `path` param is 
-a property called `containers`, which is a list of container images that are part of what is called a Kubernetes 
-`Deployment`.What `yamlPathToImage` allows you to specify is what container image should be used in the manifest. 
-This makes sure that the correct container image is deployed to Kubernetes via the `Pipeline` you will create.
+The `path` param allows you to specify the location of a Kubernetes manifest to apply via a file path. A manifest 
+is a file, which is typically in a YAML format, with a collection of Kubernetes resources. In this sceanrio, the manifest 
+will have resources declared to support a container image that you deploy to Kubernetes. 
+
+The second param is named `yamlPathToImage`. Within the manifest this `Task` uses is a property called `containers`, which 
+is a list of container images that are part of what is called a Kubernetes `Deployment`. What `yamlPathToImage` allows you 
+to specify is what container image should be used in the manifest. This makes sure that the correct container image is deployed 
+to Kubernetes via the `Pipeline` you will create.
 
 Once again, this `Task` has `PipelineResources` that it requires in order to be ran:
 
@@ -106,13 +107,7 @@ resources on your cluster.
 You may be wondering where this manifest is located. It will be available in the git repository provided by the `git` `PipelineResource` 
 named `source`. So the git repository provided via a `PipelineResource` will be how `run-kubectl` can find the manifest to apply.
 
-You can see the full definition of this `deploy-using-kubectl` by running the following command in the lower terminal:
-
-```execute-2
-cat /home/eduk8s/tekton/tasks/kubectl.yaml
-```
-
-When you are ready, create `deploy-using-kubectl` by running the following command:
+Create `deploy-using-kubectl` by running the following command:
 
 ```execute-1
 kubectl apply -f /home/eduk8s/tekton/tasks/kubectl.yaml
@@ -131,10 +126,6 @@ information used during your CI/CD process via Kubernetes `Secrets`.
 Clear your terminals before continuing:
 
 ```execute-1 
-clear
-```
-
-```execute-2
 clear
 ```
 

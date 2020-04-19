@@ -5,8 +5,8 @@ on a Kubernetes cluster.
 For the application your `Pipeline` will deploy to Kubernetes, the `Pipeline` will 
 need to be able to create the following Kubernetes resources to support the deployed 
 container:
-* [`Deployment`](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
-* [`Service`](https://kubernetes.io/docs/concepts/services-networking/service/)
+* [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
+* [Service](https://kubernetes.io/docs/concepts/services-networking/service/)
 
 These resources exist within the manifest YAML file that is part of the GitHub repository 
 where the application you will deploy to Kubernetes is. The manifest holds the following 
@@ -59,7 +59,7 @@ will be replaced by the `replace-image` `step` in the `deploy-using-kubectl` `Ta
 The `Service` is used to route requests to the containers running on both `Pods`. It will provide 
 a common endpoint to access the application deployed by the `Pipeline` you will create.
 
-Since the `Pipeline` needs the ability to create these resources, a [`ServiceAccount`](https://kubernetes.io/docs/reference/access-authn-authz/service-accounts-admin/) can be used. This `ServiceAccount` is a user that can be used to help 
+Since the `Pipeline` needs the ability to create these resources, a [ServiceAccount](https://kubernetes.io/docs/reference/access-authn-authz/service-accounts-admin/) can be used. This `ServiceAccount` is a user that can be used to help 
 with automating certain aspects of working with Kubernetes. A `ServiceAccount` named `tekton-sa` 
 has already been created in your namespace that has permissions assigned to it to create and update 
 `Deployments` and `Services`.
