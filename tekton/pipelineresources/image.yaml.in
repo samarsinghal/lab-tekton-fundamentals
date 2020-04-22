@@ -6,4 +6,4 @@ spec:
   type: image
   params:
     - name: url
-      value: ${REGISTRY_IP}:5000/go-web-server:latest
+      value: ${SESSION_NAMESPACE}-registry.${INGRESS_DOMAIN}/go-web-server:latest

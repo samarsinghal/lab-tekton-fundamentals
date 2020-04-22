@@ -29,13 +29,6 @@ tkn version
 Where the command is executed is denoted by the number with the running stick figure icon. If there is a 1, the command will 
 execute in the top terminal. If there is a 2, the command will execute in the bottom terminal. 
 
-The last piece of information to note about the workshop environment is the **Console** tab in the top center of your browser 
-next to the **Terminal** tab. The **Console** tab provides the Kubernetes dashboard to help you visualize your Kubernetes cluster 
-during the workshop. You will occassionally be asked to switch over to this view to highlight a particular concept. 
-
-Go ahead and click on the **Console** tab to take a look at the Kubernetes dashboard. Whenever you are done looking at the **Console** 
-tab, switch back to the **Terminal** tab by clicking on it. 
-
 Before beginning the workshop, execute the following commands to clear your terminals:
 
 ```execute-1 
@@ -45,3 +38,5 @@ clear
 ```execute-2
 clear
 ```
+
+Click the **Overview of Tekton Resources** button to continue.

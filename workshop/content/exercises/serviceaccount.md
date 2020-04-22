@@ -27,6 +27,8 @@ spec:
       labels:
         app: go-web-server
     spec:
+      imagePullSecrets:
+      - name: registry-credentials
       containers:
       - name: go-web-server
         image: danielhelfand/go-web-server:latest
@@ -81,7 +83,7 @@ kubectl describe role create-deployments-services
 ```
 
 Under the property `PolicyRule`, a list of `Resources` is defined. Each resource corresponds to a list of 
-`Verbs`, which represent actions a particular `ServiceAccount` or regular user is allowed to perform on a 
+`verbs`, which represent actions a particular `ServiceAccount` or regular user is allowed to perform on a 
 resource. Since this is a `Role` and not a `ClusterRole`, these permissions only apply to the namespace you 
 are currently working in.
 
@@ -102,8 +104,33 @@ Having the `tekton-sa` `ServiceAccount` will allow your `Pipeline` to create the
 support that application that will be deployed.
 
 `ServiceAccounts` with Tekton can also be helpful when connecting sensitive information to a user (e.g. an image registry 
-username and password) via Kubernetes [`Secrets`](https://kubernetes.io/docs/concepts/configuration/secret/). No `Secrets` 
-are needed in this scenario, but it's something to keep in mind for more complex use cases with CI/CD.
+username and password) via Kubernetes [`Secrets`](https://kubernetes.io/docs/concepts/configuration/secret/). `tekton-sa` 
+will need to make use of a `Secret` with credentials to push to an image registry.
+
+The image registry credentials are available via a local Docker config file, which you can view by running the following 
+command:
+
+```execute-1
+cat $HOME/.docker/config.json
+```
+
+You should see a base64 encoded value under the `auth` property that is a username and password combination for the image registry 
+specified above it: `%session_namespace%-registry.%ingress_domain%/`.
+
+Create the `Secret` from the Docker config:
+
+```execute-1
+kubectl create secret generic registry-credentials --from-file=.dockerconfigjson=$HOME/.docker/config.json --type=kubernetes.io/dockerconfigjson
+```
+
+The `Secret` created is named `registry-credentials`. `tekton-sa` already makes use of this `Secret`, which you can see by 
+running the following command:
+
+```execute-1
+kubectl describe serviceaccount tekton-sa
+```
+
+You should see `registry-credentials` available via the `Mountable secrets` property. 
 
 In the next section, you will create `PipelineResources` that will be used to connect an application's GitHub repository 
 to a `PipelineRun` as well as an image registry, name, and tag where a built container image will be pushed to.

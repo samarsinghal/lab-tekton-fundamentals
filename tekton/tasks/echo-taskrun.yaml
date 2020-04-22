@@ -1,0 +1,11 @@
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  generateName: echo-task-run-
+spec:
+  taskRef:
+    name: echo-task
+  podTemplate:
+    securityContext:
+      runAsUser: 1001
+      runAsGroup: 3000

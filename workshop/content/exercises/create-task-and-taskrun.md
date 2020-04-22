@@ -1,7 +1,7 @@
-As mentioned in the previous section, a `Task` is an ordered series of steps that perform a specific task 
+As mentioned in the previous section, a `Task` is an ordered series of `steps` that perform a specific task 
 as part of a CI/CD process. What was not mentioned is what exactly a `Step` is. In Tekton, a `Step` is actually 
-a container that will execute a particular command. A `Task` is used to order the execution of `Steps`, which 
-all run on a Kubernetes Pod. 
+a container that will execute a particular command or an entire script. A `Task` is used to order the execution 
+of `Steps`, which all run on a Kubernetes Pod. 
 
 An example `Task` is shown below:
 
@@ -46,10 +46,35 @@ Using the Tekton CLI, you can view the `Task` has been successfully created:
 tkn task ls
 ```
 
-You should see a `Task` named `echo-task` is available in your namespace. Go ahead and run this `Task` by running the following command:
+You should see a `Task` named `echo-task` is available in your namespace. To start this `Task`, you will need to create the following 
+`TaskRun`:
+
+```yaml
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  generateName: echo-task-run-
+spec:
+  taskRef:
+    name: echo-task
+  podTemplate:
+    securityContext:
+      runAsUser: 1001
+      runAsGroup: 3000
+```
+
+The `TaskRun` above passes information to Tekton about what `Task` should be run and how that `Task` should be run. The `taskRef` property 
+is how you specify that you want to run the `echo-task` you just created. The other important piece that is part of the `TaskRun` above is 
+a `podTemplate`. 
+
+This `podTemplate` helps to define how `Pods` should be created that will host this `TaskRun`. In the `podTemplate` above, a `securityContext` 
+is defined that specifies containers running on any `Pod` hosting this `TaskRun` should run as user 1001 in order to prevent the container from 
+being run as root.
+
+Go ahead and create a `TaskRun` by running the following command:
 
 ```execute-1
-tkn task start echo-task
+kubectl create -f /home/eduk8s/tekton/tasks/echo-taskrun.yaml
 ```
 
 In the next section, you will further break down the `TaskRun` you just created. Clear your terminal before continuing: 

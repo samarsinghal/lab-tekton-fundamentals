@@ -13,49 +13,20 @@ spec:
     budget: custom
     applications:
       console:
-        enabled: true
+        enabled: false
       terminal:
         enabled: true
         layout: split
+      registry:
+        enabled: true
+        memory: 1Gi
     objects:
-    - apiVersion: apps/v1
-      kind: Deployment
-      metadata:
-        name: registry
-      spec:
-        replicas: 1
-        selector:
-          matchLabels:
-            deployment: registry
-        strategy:
-          type: Recreate
-        template:
-          metadata:
-            labels:
-              deployment: registry
-          spec:
-            containers:
-            - name: registry
-              image: registry:2.7.1
-              imagePullPolicy: IfNotPresent
-              ports:
-              - containerPort: 5000
-    - apiVersion: v1
-      kind: Service
-      metadata:
-        name: registry
-      spec:
-        type: ClusterIP
-        ports:
-        - protocol: TCP
-          port: 5000
-          targetPort: 5000    
-        selector:
-          deployment: registry
     - apiVersion: v1
       kind: ServiceAccount
       metadata:
         name: tekton-sa
+      secrets:
+      - name: registry-credentials
     - apiVersion: rbac.authorization.k8s.io/v1
       kind: Role
       metadata:
@@ -75,3 +46,15 @@ spec:
       subjects:
       - kind: ServiceAccount
         name: tekton-sa
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: RoleBinding
+      metadata:
+        name: privileged-role-binding
+      roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: ClusterRole
+        name: vmware-system-tmc-psp-privileged
+      subjects:
+      - kind: ServiceAccount
+        name: tekton-sa
+        namespace: $(session_namespace)

@@ -4,9 +4,9 @@ Kubernetes API that let users create and interact with these objects using `kube
 
 The custom resources needed to define a CI/CD pipeline using Tekton are listed below:
 
-* `Task`: an ordered series of steps that perform a specific task (e.g. building a container image)
+* `Task`: an ordered series of `steps` that perform a specific task (e.g. building a container image)
 * `Pipeline`: a series of `Tasks` that can be performed in a particular order or in parallel 
-* `PipelineResource`: inputs (e.g. git repository) and outputs (e.g. image registry) to and out of a `Pipeline` or `Task`
+* `PipelineResource`: inputs (e.g. a git repository) and outputs (e.g. a container image) into and out of a `Pipeline` or `Task`
 * `TaskRun`: the execution and result (i.e. success or failure) of running a `Task`
 * `PipelineRun`: the execution and result (i.e. success or failure) of running a `Pipeline`
 
@@ -33,7 +33,7 @@ kubectl api-resources --api-group=tekton.dev
 ```
 
 Using the `--api-group` flag from `kubectl api-resources`, you can filter by an API Group. The Tekton custom resources all exist 
-under and API Group called `tekton.dev`.
+under an API Group called `tekton.dev`.
 
 Now that you have an understanding of some of the building blocks of Tekton, you will get a chance to start using some of these 
 resources. In the next section, you will create a `Task` and execute it via a `TaskRun`.

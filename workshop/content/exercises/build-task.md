@@ -49,7 +49,7 @@ This `Task` has two `params` defined:
 * `pathToContext`
 
 The param `pathToDockerfile` is, as its description mentions, `The path to the dockerfile to build`. Its `default` 
-value specifies that the Dockerfile of the source code being input to the `Task` exists within a folder in the 
+value specifies that the Dockerfile of the source code being input to the `Task` exists within a volume of the 
 container that executes a `step` (i.e. `/workspace/docker-source/Dockerfile`).
 
 The param `pathToContext` specifies the Docker build context that will be used by the tool that your `Pipeline` will 
@@ -109,13 +109,13 @@ passed to it is the param `pathToContext` from earlier in this section.
 To summarize, `build-docker-image-from-git-source` will take a git repository input, build the Dockerfile present in the git 
 repository using `kaniko`, and then will push the image to an image registry.
 
-Create `build-docker-image-from-git-source` by running the following command:
+Create `build-docker-image-from-git-source`:
 
 ```execute-1
 kubectl apply -f /home/eduk8s/tekton/tasks/kaniko.yaml
 ```
 
-To verify the `build-docker-image-from-git-source` was created, run the following command:
+Verify the `build-docker-image-from-git-source` was created:
 
 ```execute-1
 tkn task ls

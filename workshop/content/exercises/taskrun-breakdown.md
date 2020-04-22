@@ -24,7 +24,7 @@ Once your `TaskRun` has a `STATUS` of `Succeeded`, break the watch on `tkn tr ls
 <ctrl+c>
 ```
 
-Your `TaskRun` has a `STATUS` of `Succeeded`, indicating the `Task` executed successfully. 
+Your `TaskRun` has a `STATUS` of `Succeeded`, which indicates the `Task` executed successfully. 
 You can further verify this by taking a look at the logs of the last `TaskRun` to see if 
 `echo-task` carried out the expected `Steps` in the correct order:
 
@@ -32,7 +32,7 @@ You can further verify this by taking a look at the logs of the last `TaskRun` t
 tkn tr logs --last -f
 ```
 
-The log output you see should be similar to the following:
+The log output, which will appear in the lower terminal, should be the following:
 
 ```
 [echo-first] Executing first
@@ -64,7 +64,7 @@ the `Name` of it, the `Namespace` where the `TaskRun` ran, the `Task Ref` that s
 relevant in later sections of the workshop. 
 
 One thing to note before moving on is the ability to see the `STATUS` of `Steps` of a `TaskRun`. You should see 
-that both the `Steps` of the `TaskRun` are in a `Completed` state, indicating a successful termination state for 
+that both the `Steps` of the `TaskRun` are in a `Completed` state, which indicates a successful termination state for 
 the container.
 
 In the next section, you will learn about and create more advanced `Tasks` as part of building a `Pipeline`. Clear 

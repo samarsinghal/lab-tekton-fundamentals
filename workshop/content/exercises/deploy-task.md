@@ -50,7 +50,7 @@ Once again, this `Task` has `PipelineResources` that it requires in order to be 
         type: image
 ```
 
-This `Task` requires a `PipelineResource` of `type: git` and another of `type: image`, but this isn't quite exactly 
+This `Task` requires a `PipelineResource` of `type: git` and another of `type: image`, but this isn't exactly 
 the same as `build-docker-image-from-git-source`. The major difference is that the `image` `PipelineResource` is an 
 `input` `PipelineResource` this time instead of an `output` like with `build-docker-image-from-git-source`.
 
@@ -85,13 +85,12 @@ The last portion of this `Task` is a list of its `steps`:
 ```
 
 The first `step` for `deploy-using-kubectl` is named `replace-image`. This `step` uses the official image for `yq`, which 
-is a CLI tool for working with YAML files. For those fimilar with the JSON-equivalent `jq`, it is very similar but focuses 
-on creating, editing, and validating YAML files instead of JSON.
+is a CLI tool for working with YAML files. 
 
 `replace-image` uses the root command for the CLI, `yq`, and passes a list of `args` with subcommands and flags to use with 
 `yq`. Using `yq w -i`, the goal is to write (`w`) to a YAML file inplace (`-i`) and pass in three arguments that represent 
 the following:
-* A path to the YAML file to be edited - This `Task` uses `"$(params.path)"` to set specify the location of the YAML manifest file.
+* A path to the YAML file to be edited - This `Task` uses `"$(params.path)"` to specify the location of the YAML manifest file.
 * The location of the image property in the manifest - Using a template syntax, the location of the container image in the manifest 
 can be specified.
 * The image registry, name, and tag - Using the `image` `PipelineResource` via `"$(resources.inputs.image.url)"`, the final arg is 
@@ -107,13 +106,13 @@ resources on your cluster.
 You may be wondering where this manifest is located. It will be available in the git repository provided by the `git` `PipelineResource` 
 named `source`. So the git repository provided via a `PipelineResource` will be how `run-kubectl` can find the manifest to apply.
 
-Create `deploy-using-kubectl` by running the following command:
+Create `deploy-using-kubectl` by running:
 
 ```execute-1
 kubectl apply -f /home/eduk8s/tekton/tasks/kubectl.yaml
 ```
 
-Verify the `Task` was created by running the following command:
+Verify the `Task` was created:
 
 ```execute-1
 tkn task ls

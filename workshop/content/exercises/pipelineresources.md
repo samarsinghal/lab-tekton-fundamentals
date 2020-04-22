@@ -1,6 +1,4 @@
-In order to connect the `Pipeline` you will create to `PipelineResources` that 
-contain information about the git repository of the application that will be deployed 
-along with where its resulting container image will be pushed to, you will need to 
+In order to connect the `Pipeline` you will create to `PipelineResources`, you will need to 
 create two `PipelineResources`.
 
 The first is a `PipelineResource` named `go-web-server-git`. This `PipelineResource` 
@@ -22,7 +20,7 @@ spec:
 ```
 
 Upon being included, this `PipelineResource` will clone the git repository at the url included 
-under the `params` property. This clone command is run via what is called an [`init container`](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/), which is a container that executes before all other containers that are on the 
+under the `params` property. This clone command is run via what is called an [init container](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/), which is a container that executes before all other containers that are on the 
 same `Pod`. 
 
 The idea behind using an init container to clone the repository before any other `step` executes is 
@@ -36,7 +34,7 @@ kubectl apply -f /home/eduk8s/tekton/pipelineresources/git.yaml
 
 The last `PipelineResource` your `Pipeline` will need is named `go-web-server-image`. This `PipelineResource` 
 captures information about the image registry you will push the resulting container image to after building 
-the source in the `go-web-server-git` `PipelineResource`:
+the container image from the `go-web-server-git` `PipelineResource`:
 
 ```yaml
 apiVersion: tekton.dev/v1alpha1
@@ -47,21 +45,13 @@ spec:
   type: image
   params:
     - name: url
-      value: %REGISTRY_IP%:5000/go-web-server:latest
+      value: %session_namespace%-registry.%ingress_domain%/go-web-server:latest
 ```
 
 Under the `params` property of `go-web-server-image`, the `value` for the param `url` consists of three parts:
-* %REGISTRY_IP%:5000 - This value is the `ClusterIP` of a local image registry that is available in your namespace
-that is available via port 5000
-* go-web-server - The name of the container image that will be pushed to %REGISTRY_IP%:5000
+* %session_namespace%-registry.%ingress_domain%/ - This value is the domain of a local image registry available on your cluster
+* go-web-server - The name of the container image that will be pushed to %session_namespace%-registry.%ingress_domain%/
 * latest - The tag of the image 
-
-Verify that the image registry is present in your namespace and that its `Service` `ClusterIP` corresponds to the first 
-part of the `go-web-server-image` (i.e. %REGISTRY_IP%):
-
-```execute-1
-kubectl get svc/registry
-```
 
 Create the `go-web-server-image` `PipelineResource`:
 

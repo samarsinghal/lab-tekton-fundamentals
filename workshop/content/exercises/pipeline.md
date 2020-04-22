@@ -86,17 +86,18 @@ be used. Under the `resources` property, you will see how the `source-repo` and 
 `deploy-using-kubectl`. 
 
 Something to make note of under the `resources` property as well is a property called `from`. The `from` property declares that 
-the `PipelineResources` used by this `Task` will be supplied from another `Task`. In this case, the `PipelineResources` will come 
-from the `Task` that runs before it on the `Pipeline` (i.e. `build-go-web-server`). The `from` property is one of a few ways to declare 
-that `Tasks` on a `Pipeline` should run in a certain order. 
+the `PipelineResources` used by this `Task` will be supplied from another `Task`. 
+
+In this case, the `PipelineResources` will come from the `Task` that runs before it on the `Pipeline` (i.e. `build-go-web-server`). 
+The `from` property is one of a few ways to declare that `Tasks` on a `Pipeline` should run in a certain order. 
 
 Since `deploy-go-web-server` depends on `build-go-web-server`, `deploy-go-web-server` will not run until `build-go-web-server` finishes 
 successfully.
 
 There are two `params` passed via `go-web-server-pipeline` to the `deploy-using-kubectl` `Task`. The `value` of the `path` param specifies 
-where the manifest file will be located on the container `step` that contains declaration of the `Deployment` and `Service` to support the 
-application that will be deployed by `go-web-server-pipeline`. The manifest file is named `k8s.yaml` and will be available via the file path 
-specified.
+where the manifest file will be located via the container `step` volume that contains the declaration of the `Deployment` and `Service` to 
+support the application that will be deployed by `go-web-server-pipeline`. The manifest file is named `k8s.yaml` and will be available via 
+the file path specified.
 
 The `value` of the `yamlPathToImage` param is a template spec that specifies the location of the image used for the `Deployment` in the manifest 
 YAML file. This will be used by the `replace-image` `step` to use the value of the `PipelineResource` `go-web-server-image`.
