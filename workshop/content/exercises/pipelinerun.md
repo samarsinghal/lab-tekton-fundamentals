@@ -21,7 +21,7 @@ kind: PipelineRun
 metadata:
   creationTimestamp: null
   generateName: go-web-server-pipeline-run-
-  namespace: lab-tekton-fundamentals-w01-s001
+  namespace: %session_namespace%
 spec:
   pipelineRef:
     name: go-web-server-pipeline

@@ -10,7 +10,16 @@ Here are some of the things you will get to do during this workshop:
 * Learn more about the Tekton project as a whole and additional resources for the project
 * Explore! You have a Kubernetes cluster with Tekton and associated tools installed. Have fun with it and use it to do things beyond what the workshop suggests when you finish.
 
-Before beginning the workshop, you should learn a little about the workshop environment. 
+Before beginning the workshop, you should learn a little about the workshop environment.
+
+You may see the following from the terminals during the workshop:
+
+![Terminal Bug](exercises/images/terminal-bug.png)
+
+This is a minor bug with the workshop environment, but it can be resolved by clicking the refresh button shown below, which will be in the top right 
+corner of your browser:
+
+![Refresh](exercises/images/refresh.png)
 
 All commands in this tutorial can be executed by clicking the running stick figure icon on the side of the command. Go 
 ahead and run the following command to see the version of `kubectl`/Kubernetes available during this workshop:

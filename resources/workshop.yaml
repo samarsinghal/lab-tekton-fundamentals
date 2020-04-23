@@ -19,7 +19,7 @@ spec:
         layout: split
       registry:
         enabled: true
-        memory: 1Gi
+        memory: 350Mi
     objects:
     - apiVersion: v1
       kind: ServiceAccount
