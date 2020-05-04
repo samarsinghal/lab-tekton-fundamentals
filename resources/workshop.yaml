@@ -6,7 +6,7 @@ spec:
   vendor: eduk8s.io
   title: Tekton Fundamentals
   description: Workshop on learning the fundamentals of using Tekton for CI/CD
-  url: https://github.com/danielhelfand/lab_tekton_fundamentals
+  url: https://github.com/eduk8s-tests/lab-tekton-fundamentals
   tags:
   - containers
   - builds
