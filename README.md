@@ -2,8 +2,7 @@ LAB - Tekton Fundamentals
 =========================
 
 This workshop helps teach the fundamentals of using [Tekton](https://github.com/tektoncd/pipeline) for CI/CD with Kubernetes. 
-As of this time, it will only run on a Kubernetes cluster provisioned by [Tanzu Mission Control (TMC)](https://tanzu.vmware.com/mission-control?gclid=CjwKCAjw-YT1BRAFEiwAd2WRtqC0WthDAKNAPUQzJF0lMXKelEd1gUJhj4UM9wkHHBK-GXlPeIt99hoCZZIQAvD_BwE). The minimum Kubernetes version is 
-v1.15.0 since Tekton itself requires this version.
+As of this time, it will only run on a Kubernetes cluster provisioned by [Tanzu Mission Control (TMC)](https://tanzu.vmware.com/mission-control?gclid=CjwKCAjw-YT1BRAFEiwAd2WRtqC0WthDAKNAPUQzJF0lMXKelEd1gUJhj4UM9wkHHBK-GXlPeIt99hoCZZIQAvD_BwE). The minimum Kubernetes version is v1.15.0 since Tekton itself requires this version.
 
 Prerequisites
 -------------
@@ -14,10 +13,15 @@ In order to use the workshop you should have the eduk8s operator installed. For 
 
 * https://github.com/eduk8s/eduk8s-operator
 
-Tekton must also be installed on your cluster hosting the workshop. You can install it using the following command:
+Tekton must also be installed on your cluster hosting the workshop. Since TMC clusters have a PodSecurityPolicy that prevents images to run as root, but Tekton release runs the webhook image as root, we need to create a rolebinding first.. You can install it using the following command:
 
 ```
-kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/previous/v0.11.1/release.yaml
+kubectl create ns tekton-pipelines
+kubectl create rolebinding privileged-role-binding-tekton-pipelines-webhook \
+               --clusterrole=vmware-system-tmc-psp-privileged \
+               --serviceaccount=tekton-pipelines:tekton-pipelines-webhook \
+               -n tekton-pipelines
+kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/previous/v0.12.0/release.yaml
 ```
 
 Deployment
