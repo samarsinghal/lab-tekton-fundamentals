@@ -7,41 +7,34 @@ As of this time, it will only run on a Kubernetes cluster provisioned by [Tanzu 
 Prerequisites
 -------------
 
-A Kubernetes cluster v1.15.0 provisioned by Tanzu Mission Control.
+A Kubernetes cluster v1.15.0 or higher provisioned by Tanzu Mission Control.
 
-In order to use the workshop you should have the eduk8s operator installed. For installation instructions for the eduk8s operator see:
+The eduk8s operator installed. For installation instructions for the eduk8s operator see:
 
 * https://github.com/eduk8s/eduk8s-operator
 
-Tekton must also be installed on your cluster hosting the workshop. Since TMC clusters have a PodSecurityPolicy that prevents images to run as root, but Tekton release runs the webhook image as root, we need to create a rolebinding first.. You can install it using the following command:
+Tekton must also be installed on your cluster hosting the workshop. You can install it using the following command:
 
 ```
-kubectl create ns tekton-pipelines
-kubectl create rolebinding privileged-role-binding-tekton-pipelines-webhook \
-               --clusterrole=vmware-system-tmc-psp-privileged \
-               --serviceaccount=tekton-pipelines:tekton-pipelines-webhook \
-               -n tekton-pipelines
-kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/previous/v0.12.0/release.yaml
+kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/previous/v0.15.0/release.yaml
 ```
 
 Deployment
 ----------
 
-To deploy the workshop environment run:
+You need to be a cluster admin to create the deployment using this method.
+
+Deploy the workshop environment run:
 
 ```
 kubectl apply -k github.com/danielhelfand/lab_tekton_fundamentals
 ```
 
-Then run:
+The below command will output the URL to access the web portal for the training environment:
 
 ```
 kubectl get trainingportal/lab-tekton-fundamentals
 ```
-
-This will output the URL to access the web portal for the training environment.
-
-You need to be a cluster admin to create the deployment using this method.
 
 Deletion
 --------
