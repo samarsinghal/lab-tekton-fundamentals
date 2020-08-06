@@ -20,7 +20,7 @@ In the illustration, you can see how a `Pipeline` is composed of
 outputs are available during the execution of a `Pipeline`. 
 
 All of the above custom resources are namespaced, meaning they can only be created and run in a particular Kubernetes namespace. 
-For example, to run a `Pipeline` (i.e. a `PipelineRun`) with Tekton, a `Pipeline`, the `Tasks` that are part of a `Pipeline`, and 
+For example, to run a `Pipeline` (i.e. a `PipelineRun`), a `Pipeline`, the `Tasks` that are part of a `Pipeline`, and 
 the `PipelineRun` and associated `TaskRuns` all must be present and run in the same namespace.
 
 There are Tekton resources available that have a cluster scope, such as a [`ClusterTask`](https://github.com/tektoncd/pipeline/blob/master/docs/tasks.md#clustertask). This means the resource has a global presence on the cluster and can be executed in any namespace on the cluster. 
@@ -32,8 +32,7 @@ Go ahead and take a look at what Tekton custom resources are available on your c
 kubectl api-resources --api-group=tekton.dev
 ```
 
-Using the `--api-group` flag from `kubectl api-resources`, you can filter by an API Group. The Tekton custom resources all exist 
-under an API Group called `tekton.dev`.
+The Tekton custom resources shown above all exist under an API Group called `tekton.dev`.
 
 Now that you have an understanding of some of the building blocks of Tekton, you will get a chance to start using some of these 
 resources. In the next section, you will create a `Task` and execute it via a `TaskRun`.

@@ -1,7 +1,7 @@
 As mentioned in the previous section, a `Task` is an ordered series of `steps` that perform a specific task 
-as part of a CI/CD process. What was not mentioned is what exactly a `Step` is. In Tekton, a `Step` is actually 
-a container that will execute a particular command or an entire script. A `Task` is used to order the execution 
-of `Steps`, which all run on a Kubernetes Pod. 
+as part of a CI/CD process. What was not mentioned is what exactly a `Step` is. In Tekton, a `Step` is a container 
+that will execute a particular command or an entire script. A `Task` is used to order the execution of `Steps`, which 
+all run on a Kubernetes Pod. 
 
 An example `Task` is shown below:
 

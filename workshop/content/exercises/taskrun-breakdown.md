@@ -44,17 +44,10 @@ The logs for a particular `Step` are denoted by brackets around the name of the 
 output of the `Step` to the right of `Step` name. The output shows the `echo-first` `Step` completed 
 followed by the `echo-second` `Step`. 
 
-You can further describe the `TaskRun` using `tkn tr describe`. First, grab the name of the `TaskRun` 
-and save it to a variable named `TASKRUN`:
+You can further describe the `TaskRun` using `tkn tr describe`: 
 
 ```execute-1
-TASKRUN=`tkn tr ls -o jsonpath="{range .items[*]}{.metadata.name}{\"\\n\"}{end}" --limit 1`
-```
-
-Run the following to describe the `TaskRun`:
-
-```execute-1
-tkn tr desc $TASKRUN
+tkn tr desc --last
 ```
 
 `tkn tr desc` shows much more detail about `TaskRuns` that you have created. It is particularly helpful 
