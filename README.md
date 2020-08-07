@@ -27,7 +27,7 @@ You need to be a cluster admin to create the deployment using this method.
 Deploy the workshop environment run:
 
 ```
-kubectl apply -k github.com/danielhelfand/lab_tekton_fundamentals
+kubectl apply -k github.com/eduk8s-tests/lab-tekton-fundamentals
 ```
 
 The below command will output the URL to access the web portal for the training environment:
@@ -42,5 +42,5 @@ Deletion
 When you are finished with the workshop environment, you can delete it by running:
 
 ```
-kubectl delete -k github.com/danielhelfand/lab_tekton_fundamentals
+kubectl delete -k github.com/eduk8s-tests/lab-tekton-fundamentals
 ```
