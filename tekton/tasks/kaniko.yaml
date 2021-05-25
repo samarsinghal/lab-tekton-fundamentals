@@ -34,3 +34,6 @@ spec:
         - --dockerfile=$(params.pathToDockerfile)
         - --destination=$(resources.outputs.builtImage.url)
         - --context=$(params.pathToContext)
+        - --insecure
+        - --insecure-pull
+        - --insecure-registry

@@ -1,13 +1,13 @@
-apiVersion: projectcontour.io/v1
-kind: HTTPProxy
+apiVersion: extensions/v1beta1
+kind: Ingress
 metadata:
   name: go-web-server-ingress
 spec:
-  tcpproxy:
-    services:
-    - name: go-web-server-service
-      port: 8080
-  virtualhost:
-    fqdn: ${SESSION_NAMESPACE}-app.${INGRESS_DOMAIN}
-    tls:
-      passthrough: true
+  rules:
+  - host: ${SESSION_NAMESPACE}-app.${INGRESS_DOMAIN}
+    http:
+      paths:
+      - path: "/"
+        backend:
+          serviceName: go-web-server-service
+          servicePort: 8080

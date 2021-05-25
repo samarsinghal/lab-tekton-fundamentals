@@ -1,0 +1,13 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  name: go-web-server-ingress
+spec:
+  tcpproxy:
+    services:
+    - name: portal-w06-s001-registry
+      port: 5000
+  virtualhost:
+    fqdn: portal-w06-s001-registry.tanzudemo.frankcarta.com
+    tls:
+      passthrough: true
