@@ -21,7 +21,7 @@ spec:
     # replace-image replaces image specified in manifest
     # with the image resource used for the TaskRun
     - name: replace-image
-      image: mikefarah/yq:v3
+      image: mikefarah/yq:3
       command: ["yq"]
       args:
         - "w"
@@ -39,3 +39,4 @@ spec:
         - "apply"
         - "-f"
         - "$(params.path)"
+        - "--validate=false"
