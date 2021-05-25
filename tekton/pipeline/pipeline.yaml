@@ -37,4 +37,4 @@ spec:
         - name: path
           value: /workspace/source/k8s.yaml
         - name: yamlPathToImage
-          value: "spec.containers[0].image"
+          value: ".spec.template.spec.containers[0].image"
