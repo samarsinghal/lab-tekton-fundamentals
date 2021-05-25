@@ -24,7 +24,7 @@ spec:
       image: mikefarah/yq
       command: ["yq"]
       args:
-        - "w"
+        - "e"
         - "-i"
         - "$(params.path)"
         - "$(params.yamlPathToImage)"
